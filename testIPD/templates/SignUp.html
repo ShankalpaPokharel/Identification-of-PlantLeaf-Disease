@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
- 
-    <link rel="stylesheet" href="login_style.css">
+    {% load static %}
+    <link rel="stylesheet" href="static/css/login_style.css">
 </head>
 <body>
     <header>
-       <a href="/home.html"><img class = "logo" src="Images/logo.png" alt="logo"> </a> 
+       <a href="{% url 'home' %}"><img class = "logo" src=static/css/Images/logo.png alt="logo"> </a> 
     </header>
     <div class="wrapper">
       <h1>Sign Up</h1>
@@ -31,7 +31,7 @@
     <button>Sign Up</button>
 
     <div class="member">
-        Already a member?  <a href="/login.html"> Login Here </a>
+        Already a member?  <a href="{% url 'login' %}"> Login Here </a>
     </div>
 
 

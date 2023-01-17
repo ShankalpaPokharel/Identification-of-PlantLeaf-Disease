@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Djan</title>
    
-
-    <link rel="stylesheet" href="style.css">
+    {% load static %}
+    <link rel="stylesheet" href="static/css/style.css">
     
 </head>
 <body>
 
     <header>
-        <img class = "logo" src="Images/logo.png" alt="logo">
+        <img class = "logo" src=static/css/Images/logo.png alt="logo">
 
 
         <!-- Navigation bar -->
@@ -24,7 +24,7 @@
             <li><a href="#">About Us</a></li>
         </ul>
 
-        <a class="si" href="./login"><button name="login">Login</button></a>
+        <a class="si" href="{% url 'login' %}"><button name="login">Login</button></a>
 
 
 
@@ -36,18 +36,19 @@
 
 <div class = "choosePredict">
 
-    <form action="">
-        <input type="file">
-        <input type="submit">
-   
+    <form method="post" action = "/upload_image"enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image">
+        <input type="submit" value="Upload">
     </form>
-
-    Disease Name : 
+    
+    Disease Name : {{prediction}}
     
     </div> 
 
 
 
+
+
 </body>
 </html>
-
