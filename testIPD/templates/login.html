@@ -13,31 +13,42 @@
        <a href="{% url 'home' %}" ><img class = "logo" src=static/css/Images/logo.png alt="logo"> </a> 
     </header>
     <div class="wrapper">
+
       <h1>Login</h1>
-      <form action="#">
-          <input type="text" placeholder="Username">
-          <input type="password" placeholder="Password">
+      <form action="loginn" method="POST">
+        {% csrf_token %}
+          <input type="text" placeholder="Username" id = "loginusername" name = 'username' >
+          <input type="password" placeholder="Password" id = "pass"  name = "password">
+
+          {% if errorr %}
+            <p>{{ errorr }}</p>
+            {% endif %}
 
           <div class="recover">
             <a href="#">Forgot Password?</a>
           </div>
+
+          <button type="submit">Login</button>
+     
           
+
     </form>
       
 
 
 
 
-    <button>Sign Up</button>
+    
 
     <div class="member">
         Not a member?  <a href="{% url 'SignUp' %}"> Register Now </a>
     </div>
 
-
-
-
     </div>
     
+
+   
+
+
 </body>
 </html>

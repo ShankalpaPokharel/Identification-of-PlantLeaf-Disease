@@ -12,23 +12,31 @@
     <header>
        <a href="{% url 'home' %}"><img class = "logo" src=static/css/Images/logo.png alt="logo"> </a> 
     </header>
-    <div class="wrapper">
+    <!-- <div class="wrapper">
       <h1>Sign Up</h1>
-      <form action="#">
-          <input type="text" placeholder="Username">
-          <input type="email" placeholder="E-mail">
-          <input type="password" placeholder="Password">
-          <input type="password" placeholder="Re-Enter Password">
-    </form>
-      
+      <form action="signupp" method="POST">
+        {% csrf_token %}
+          <input type="text" placeholder="Username" id = "username" name = "username">
+          <input type="text" placeholder="First Name" id = "fname" name = "fname">
+          <input type="text" placeholder="Last Name" id = "lname" name = "lname">
+          <input type="email" placeholder="E-mail" id = "email" name  ="email">
+          <input type="password" placeholder="Choose your password" id = "pass1" name = "pass1">
+          <input type="password" placeholder="Enter your password agian" id = "pass2" name = "pass2" >
+   
+    
 
-    <div class="terms">
-        <input type="checkbox" id = "checkbox">
-        <label for="checkbox">I  agree to these <a href="#">Terms & Condition</a></label>
+    <div class="form-group">
+        <div class="g-recaptcha" data-sitekey="6LdWM_QkAAAAALH0nuBvk8aXRH8zL-2voqJcQcrI"></div>
+        {% if errors.recaptcha %}
+            <div class="invalid-feedback">{{ errors.recaptcha }}</div>
+        {% endif %}
     </div>
 
 
-    <button>Sign Up</button>
+    <button type="submit">Sign Up</button>
+
+     </form>
+
 
     <div class="member">
         Already a member?  <a href="{% url 'login' %}"> Login Here </a>
@@ -37,7 +45,65 @@
 
 
 
+    </div> -->
+
+    <div class="wrapper">
+        <h1>Sign Up</h1>
+        <form action="signupp" method="POST">
+            {% csrf_token %}
+
+            <input type="text" placeholder="Username" id="username" name="username" {% if errors.username %}class="error"{% endif %} value="{{ request.POST.username }}">
+            {% if errors.username %}
+                <div class="error-message">{{ errors.username }}</div>
+            {% endif %}
+           
+            <input type="text" placeholder="First Name" id="fname" name="fname" {% if errors.fname %}class="error"{% endif %} value="{{ request.POST.fname }}">
+            {% if errors.fname %}
+                <div class="error-message">{{ errors.fname }}</div>
+            {% endif %}
+            
+            <input type="text" placeholder="Last Name" id="lname" name="lname" {% if errors.lname %}class="error"{% endif %} value="{{ request.POST.lname }}">
+            {% if errors.lname %}
+                <div class="error-message">{{ errors.lname }}</div>
+            {% endif %}
+            
+            <input type="email" placeholder="E-mail" id="email" name="email" {% if errors.email %}class="error"{% endif %} value="{{ request.POST.email }}">
+            {% if errors.email %}
+                <div class="error-message">{{ errors.email }}</div>
+            {% endif %}
+            
+            <input type="password" placeholder="Choose your password" id="pass1" name="pass1" {% if errors.password %}class="error"{% endif %}>
+            {% if errors.pass1 %}
+                <div class="error-message">{{ errors.pass1 }}</div>
+            {% endif %}
+            
+            <input type="password" placeholder="Enter your password again" id="pass2" name="pass2" {% if errors.password %}class="error"{% endif %}>
+            
+            
+            {% if errors.pass2 %}
+                <div class="error-message">{{ errors.pass2 }}</div>
+            {% endif %}
+
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LdWM_QkAAAAALH0nuBvk8aXRH8zL-2voqJcQcrI"></div>
+                {% if errors.recaptcha %}
+                    <div class="error-message">{{ errors.recaptcha }}</div>
+                {% endif %}
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="member">
+            Already a member? <a href="{% url 'login' %}">Login Here</a>
+        </div>
     </div>
     
+
+
+
+
+    
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 </body>
 </html>

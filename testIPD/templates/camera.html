@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Image Capture</title>
+</head>
+<body>
+    <!-- Heading -->
+    <h1>Image Capture</h1>
+    
+    <!-- Form to submit the captured image -->
+    <form method="post" action="{% url 'image_capture_view' %}">
+        {% csrf_token %}
+        <!-- Hidden input to hold the image data -->
+        <input type="hidden" name="image_data" id="image_data">
+        
+        <!-- Video element to display the captured video feed -->
+        <video id="video" width="480" height="480" autoplay></video>
+        {% comment %} <video id="video" width="480" height="" autoplay style="border: 5px solid green;"></video> {% endcomment %}
+
+        
+        <!-- Button to capture the image -->
+        <button type="button" id="capture_btn">Capture</button>
+        <br>
+        
+        <!-- Button to submit the captured image -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Display the predicted disease name -->
+    Disease Name : {{prediction}}
+
+    <!-- JavaScript code to capture the video feed and set the captured image data -->
+    <script>
+        // Get the video, capture button, and image data input element
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture_btn');
+        const imageDataInput = document.getElementById('image_data');
+
+        // Request access to the user's video feed
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                // Set the video element's source to the stream
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                // Log any errors to the console
+                console.log(error);
+            });
+
+        // Add a click event listener to the capture button
+        captureBtn.addEventListener('click', () => {
+            // Create a canvas element with the same dimensions as the video
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            // Get the canvas context and draw the video frame onto it
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Get the data URL of the captured image and set it as the value of the image data input element
+            const dataURL = canvas.toDataURL('image/jpeg');
+            imageDataInput.value = dataURL;
+        });
+    </script>
+</body>
+</html>

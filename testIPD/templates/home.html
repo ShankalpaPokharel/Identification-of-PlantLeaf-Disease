@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,42 +12,44 @@
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <img class = "logo" src=static/css/Images/logo.png alt="logo">
-
+        <img class="logo" src=static/css/Images/logo.png alt="logo">
 
         <!-- Navigation bar -->
-        <ul class = "nav_links">
+        <ul class="nav_links">
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About Us</a></li>
         </ul>
 
+        <!-- Login button -->
         <a class="si" href="{% url 'login' %}"><button name="login">Login</button></a>
-
-
-
+       
+        
     </header>
 
-<hr>
+    <br>
     
-
-
-<div class = "choosePredict">
-
-    <form method="post" action = "/upload_image"enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="image">
-        <input type="submit" value="Upload">
-    </form>
-    
-    Disease Name : {{prediction}}
-    
+    <!-- Form for uploading image -->
+    <div class="choosePredict">
+        <form method="post" action="/upload_image" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image">
+            <input type="submit" value="Upload">
+        </form>
+        Disease Name : {{prediction}}
     </div> 
 
+    <br><br><br><br>
 
+    <!-- Link for capturing image with camera -->
+    <a href="{% url 'camera' %}">Take Picture</a>
 
-
+    {% if prediction %}
+    <!-- Display the predicted disease -->
+    <h1>The image belongs to {{ prediction }}</h1>
+    {% endif %}
 
 </body>
 </html>
