@@ -1,18 +1,417 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main Page</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-</head>
-<body>
-    <h1>Hello {{ fname }}</h1>
-    <p>Welcome to the main page!</p>
 
-    <br>
-    <a href="{%url 'logout'%}">Logout</a>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta
+        name="viewport" content="width=device-width, initial-scale=1.0">
 
-</body>
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,500&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/image_upload.css' %}">
+
+
+        	
+
+
+        <title>Identification of Plant Disease</title>
+
+
+        <style>
+            body {
+                font-family: 'DM Sans', sans-serif;
+            }
+
+          
+        </style>
+
+        
+       
+
+
+
+
+    </head>
+
+    <body>
+
+
+ <!-- hero bg start -->
+ <div style="background-image: url({% static '/Images/hero-bg.png' %})">
+
+        <!-- Navbar -->
+        <div class="container mt-3 ">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+                <div class="container-fluid">
+
+                    <!-- logo -->
+                    <a class="navbar-brand" href="{% url 'home'%}">
+                        <img src={%static "Images/logo.png"%} width="40" height="40" class="d-inline-block align-top" alt="Logo">
+                    </a>
+
+                    <!-- collapse button for small devices -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                             {% comment %} <li class="nav-item">
+                                <a class="nav-link active fw-bold" aria-current="page" href="index.html">Home</a>
+                            </li>  {% endcomment %}
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold" href="#why">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold" href="#about">About US</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold" href="#testimonial">Testimonials</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold" href="{% url 'history'%}">History</a>
+                            </li>
+                            
+
+
+                        </ul>
+
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0 ">
+                            
+                            <div class="dropdown">
+                                <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hi {{ fname }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                                  <li><a class="dropdown-item" href="{% url 'logout'%}">Log Out</a></li>
+                                </ul>
+                              </div>
+
+                        </ul>
+
+
+
+                    </div>
+
+
+                </div>
+            </nav>
+
+
+        </div>
+
+        
+
+        <div class="d-none d-lg-block" style="margin: 40px;"></div>
+        <!-- Hero Content -->
+        <section id="home" class="py-9">
+        <div class="container">
+            <div class="row align-items-center">
+
+
+                <div class="col-lg-6">
+                    <h1 class="mb-4">Identify plant diseases with ease</h1>
+                    <p class="lead mb-4">Our AI-powered platform can accurately identify plant diseases based on images of the affected plants. Simply upload an image and get a diagnosis in seconds.</p>
+                </div>
+
+
+
+                {% comment %} file upload {% endcomment %}
+                <div class="col-lg-6 my-4 ">
+
+
+
+
+                    <form method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="dropzone">
+                          <span>Drag and drop an image here</span>
+                          <label for="fileInput" class="file-btn">Choose File</label>
+                          <input type="file" id="fileInput" name="image" accept="image/*" style="display:none;">
+                          <span id="deleteIcon" class="delete-icon" style="display:none;"></span>
+                          <img id="previewImage" style="display:none;">
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <button id="submitBtn" type="submit" class="btn btn-lg btn-success mt-3 b" disabled>Submit</button>
+                        </div>
+                      </form>
+                      
+               
+
+
+                 
+                      
+               
+                </div>
+
+
+
+
+
+                {% comment %} <div class="col-lg-6 my-4 ">
+
+                    <div class="dropzone">
+                        
+                    </div> {% endcomment %}
+
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+
+    {% comment %} <div class="container col-lg-6 my-4">
+
+        <div class="dropzone">
+
+    </div> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <section>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="container col-lg-6 my-4">
+
+                    <div class="dropzone">
+
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    {% if disease_predictions%}
+    <section class="container d-flex justify-content-center">
+        <div class="card mb-3">
+            <div class="row g-0">
+              
+                <div class="col-md-5">
+                <img src="{{ disease_predictions.0.image.url }}" class="img-fluid rounded-start" alt="{{ disease_predictions.0.disease }}">
+
+              </div>
+
+              <div class="col-md-7">
+                <div class="card-body">
+                  {% comment %} <h5 class="card-title">Card title</h5> {% endcomment %}
+                  <p class="card-text"><b>Predicted disease:</b> {{ disease_predictions.0.predicted_disease }}</p>
+                  <p class="card-text"><p class="h4">Treatment:</p> {{ disease_predictions.0.treatment}} </p>
+                  <p class="card-text"> <p class="h4">How to Use:</p> {{ disease_predictions.0.how_to_use}}</p>
+
+                </div>
+              </div>
+            
+            </div>
+          </div>
+    </section>
+    {% endif %}
+
+
+    <div class="d-none d-lg-block" style="margin: 190px;"> </div>
+
+        <section id="features" >
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <img src={%static "/Images/capsul.jpeg"%} class="img-fluid m-1" alt="Example of plant disease identification tool">
+                    </div>
+                    <div class="col-md-6 pt-5">
+                        <h2 class="fw-bold mb-4">Get personalized recommendations for treatment</h2>
+                        <p class="lead mb-4">Our platform not only identifies plant diseases, but also provides personalized recommendations for treatment based on your specific situation. Whether you're an experienced gardener or a beginner, our recommendations will help you keep your plants healthy and thriving.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+<!-- hero-bg-end -->
+        </div>
+
+        
+
+        <!-- Features section -->
+        <!-- Why choose -->
+        <section id="why"  class="py-5 bg-light">
+
+            <div class="container">
+                <h2 class="text-center mb-5">Why choose our plant disease identification tool?</h2>
+
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <i class="fas fa-leaf mb-3 fa-3x"></i>
+                                <h4 class="card-title mb-3">Easy to Use</h4>
+                                <p class="card-text">Our platform is designed to be user-friendly, making it easy for anyone to identify and diagnose plant diseases.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <i class="fas fa-search mb-3 fa-3x"></i>
+                                <h4 class="card-title mb-3">Accurate Results</h4>
+                                <p class="card-text">Our advanced algorithms provide accurate results, ensuring that you receive the correct diagnosis for your plants.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shield-alt mb-3 fa-3x"></i>
+                                <h4 class="card-title mb-3">Secure and Private</h4>
+                                <p class="card-text">Your data is safe with us. We take your privacy seriously and ensure that all information is kept secure and confidential.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- About section -->
+        <section id="about" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <h2 class="text-center mb-5">About Us</h2>
+                    <div class="col-md-6 ">
+                        
+                        <p>We are a team of passionate plant enthusiasts who understand the importance of keeping plants healthy. Our platform is designed to help people identify and diagnose plant diseases quickly and accurately, so that they can take the necessary steps to protect their plants.</p>
+                        <p>Our mission is to promote plant health and help people all over the world keep their plants thriving.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src={%static "/Images/about-us.svg"%} alt="About" class="img-fluid rounded-circle mb-3">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials section -->
+        <section class="bg-light py-5" id="testimonial">
+            <div class="container">
+                <h2 class="text-center mb-5">What our users say ?</h2>
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">"I used this website to diagnose my tomato plants and it was spot on! Thanks for saving my harvest."</p>
+                                <p class="card-text">
+                                    <small class="text-muted">- John, tomato farmer</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">"This website is amazing! It helped me identify a disease on my indoor plant that I had no idea how to treat. Highly recommended."</p>
+                                <p class="card-text">
+                                    <small class="text-muted">- Sarah, houseplant enthusiast</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">"I love how fast and easy this website is to use. I was able to diagnose my plant in less than 5 minutes and get expert advice on how to treat it."</p>
+                                <p class="card-text">
+                                    <small class="text-muted">- David, hobby gardener</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="m-5 p-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mx-auto text-center">
+                        <h2>Join Thousands of Satisfied Users Today</h2>
+                        <p class="lead">Sign up now for a free use and see how our AI-powered tool can help you diagnose and cure your plant diseases faster and easier than ever before.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+   
+        {% include 'footer.html' %}
+ 
+
+
+<!-- try -->
+
+
+
+        <script type="text/javascript" src="{% static 'js/image_upload.js' %}"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    </body>
+
 </html>
+
+<!-- 
+    fw-bold : use to bold text
+
+
+
+
+
+
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { ... }
+-->

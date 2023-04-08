@@ -14,19 +14,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+
+
+# from django.contrib import admin
+# from django.urls import path
+# from . import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', views.index, name='index'),
+#     path('logo_redirect/', views.logo_redirect, name='logo_redirect'),
+#     path('login_page/', views.login_page, name='login_page'),
+#     path('signup_page/', views.signup_page, name='signup_page'),
+#     path('signup/', views.signup, name="signup"),
+#     path('login/', views.login, name='login'),
+#     path('logout/', views.logout_view, name='logout'),
+#     path('home/', views.home, name ='home'),
+
+#     path('image_upload/', views.image_upload, name='image_upload'),
+
+# ]
+
+
 from django.contrib import admin
+from django.urls import include
 from django.urls import path
-from . import views
+
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('logo_redirect/', views.logo_redirect, name='logo_redirect'),
-    path('login_page/', views.login_page, name='login_page'),
-    path('signup_page/', views.signup_page, name='signup_page'),
-    path('signup/', views.signup, name="signup"),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('home/', views.home, name ='home'),
-
-]
+    path('', include('disease_detection.urls')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,58 +1,73 @@
 {% block footer %}
 {% load static %}
 
-<footer class="text-white" style="background-image: url({% static 'Images/footer.svg' %}); height:300px">
+<footer class="text-white footer" style="background-image: url({% static 'Images/footer.svg' %});">
+  <div class="container py-4">
+    <div class="row mt-5">
+      <div class="col-md-4 col-sm-4 mb-3 mb-sm-0 text-center">
+        <h5>Plant Disease Detection</h5>
+        <p class="text-white">Our AI-powered tool helps you detect and diagnose plant diseases accurately and quickly, saving you time and money.</p>
+      </div>
+      <div class="col-md-4 col-sm-4 mb-3 mb-sm-0 text-center">
+        <h5>Follow Us</h5>
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#">
+              <!-- <i class="fab fa-facebook fa-lg"></i> -->
+              Facebook</a>
+          </li>
+          <li>
+            <a href="#">
+              <!-- <i class="fab fa-twitter fa-lg"></i> -->
+              Twitter</a>
+          </li>
+          <li>
+            <a href="#">
+              <!-- <i class="fab fa-instagram fa-lg"></i> -->
+              Instagram</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-sm-4 mb-3 mb-sm-0 text-center">
+        <h5>Contact Us</h5>
+        <ul class="list-unstyled">
+          <li>
+            <!-- <i class="fas fa-envelope"></i> -->
+            support@plantdiseasedetection.com</li>
+          <li>
+            <!-- <i class="fas fa-phone"></i> -->
+            555-123-4567</li>
+          <li>
+            <!-- <i class="fas fa-map-marker-alt"></i> -->
+            Naxal, Kathmandu Nepal</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12 text-center">
+        <p class="text-white mb-0">Copyright &copy;
+          <a href="#">Plant Disease Detection</a>. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<style>
+    @media (max-width: 767.98px) {
+      footer {
+        min-height: 600px;
+        
+      }
 
+    }
+    
+    @media (min-width: 768px) {
+      footer {
+        min-height: 300px;
+        {% comment %} bottom: 0;
+        right: 0; {% endcomment %}
+      }
+    }
 
-      
-
-            <div class="container py-4">
-                <div class="row mt-5">
-                    <div class="col-md-4">
-                        <h5>Plant Disease Detection</h5>
-                        <p class="text-white">Our AI-powered tool helps you detect and diagnose plant diseases accurately and quickly, saving you time and money.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Follow Us</h5>
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#">
-                                    <!-- <i class="fab fa-facebook fa-lg"></i> -->
-                                    Facebook</a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <!-- <i class="fab fa-twitter fa-lg"></i> -->
-                                    Twitter</a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <!-- <i class="fab fa-instagram fa-lg"></i> -->
-                                    Instagram</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Contact Us</h5>
-                        <ul class="list-unstyled">
-                            <li>
-                                <!-- <i class="fas fa-envelope"></i> -->
-                                support@plantdiseasedetection.com</li>
-                            <li>
-                                <!-- <i class="fas fa-phone"></i> -->
-                                555-123-4567</li>
-                            <li>
-                                <!-- <i class="fas fa-map-marker-alt"></i> -->
-                                Naxal, Kathmandu Nepal</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 text-center">
-                        <p class="text-white mb-0">Copyright &copy;
-                            <a href="#">Plant Disease Detection</a>. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    
+  </style>
 {% endblock %}
