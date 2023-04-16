@@ -142,3 +142,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# to solve this issuse: when DEBUG is set to False, the ALLOWED_HOSTS setting must also be set
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1'] 
+
+# need to do this
+# python manage.py collectstatic
+
+
+
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'plant.disease.by.shankalpa@gmail.com'
+EMAIL_HOST_PASSWORD = 'hxhtubyqdfophftm'
+
+
+
+BASE_URL = 'http://127.0.0.1:8000'
