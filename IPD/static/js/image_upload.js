@@ -3,9 +3,10 @@ let fileInput = document.querySelector('#fileInput');
 let previewImage = document.querySelector('#previewImage');
 let deleteIcon = document.querySelector('#deleteIcon');
 let submitBtn = document.querySelector('#submitBtn');
+let file;
 
 function handleFileSelect(event) {
-  let file = event.target.files[0];
+  file = event.target.files[0]; // remove the "let" keyword
   if (file.type.startsWith('image/')) {
     let reader = new FileReader();
     reader.onload = (e) => {
@@ -16,8 +17,6 @@ function handleFileSelect(event) {
       dropzone.classList.add('disabled');
       fileInput.classList.add('disabled');
       submitBtn.disabled = false;
-    
-
     }
     reader.readAsDataURL(file);
   } else {
@@ -38,9 +37,17 @@ dropzone.addEventListener('dragleave', () => {
 
 dropzone.addEventListener('drop', (e) => {
   e.preventDefault();
-  let file = e.dataTransfer.files[0];
+  file = e.dataTransfer.files[0]; // remove the "let" keyword
   if (file.type.startsWith('image/')) {
     let reader = new FileReader();
+
+
+
+    let formData = new FormData();
+    formData.append('image', file);
+
+    fileInput.files = e.dataTransfer.files;
+
     reader.onload = (e) => {
       previewImage.src = e.target.result;
       previewImage.style.display = 'block';
@@ -49,7 +56,6 @@ dropzone.addEventListener('drop', (e) => {
       dropzone.classList.add('disabled');
       fileInput.classList.add('disabled');
       submitBtn.disabled = false;
-    
     }
     reader.readAsDataURL(file);
   } else {
@@ -65,4 +71,3 @@ deleteIcon.addEventListener('click', () => {
   dropzone.classList.remove('disabled');
   fileInput.classList.remove('disabled');
 });
-

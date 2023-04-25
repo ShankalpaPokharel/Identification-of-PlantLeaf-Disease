@@ -77,6 +77,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active fw-bold" href="{% url 'history'%}">History</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold" href="{% url 'take_photo'%}">Take Photo</a>
+                            </li>
                             
 
 
@@ -128,7 +131,7 @@
 
 
 
-                    <form method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
+                    {% comment %} <form method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="dropzone">
                           <span>Drag and drop an image here</span>
@@ -140,6 +143,22 @@
                         <div class="d-grid gap-2 col-6 mx-auto">
                         <button id="submitBtn" type="submit" class="btn btn-lg btn-success mt-3 b" disabled>Submit</button>
                         </div>
+                        
+                      </form> {% endcomment %}
+
+                      <form id="formId" method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="dropzone">
+                          <span>Drag and drop an image here</span>
+                          <label for="fileInput" class="file-btn">Choose File</label>
+                          <input type="file" id="fileInput" name="image" accept="image/*" style="display:none;">
+                          <span id="deleteIcon" class="delete-icon" style="display:none;"></span>
+                          <img id="previewImage" style="display:none;">
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <button id="submitBtn" type="submit" class="btn btn-lg btn-success mt-3 b" disabled>Submit</button>
+                        </div>
+                        
                       </form>
                       
                
@@ -380,8 +399,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
    
    
-   
-   
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
    
    
    

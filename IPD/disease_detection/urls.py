@@ -23,6 +23,11 @@ urlpatterns = [
     path('history/', views.history, name='history'),
 
 
+    path('take_photo/', views.take_photo, name='take_photo'),
+    path('image_capture/', views.image_capture, name='image_capture'),
+    
+
+
 
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
