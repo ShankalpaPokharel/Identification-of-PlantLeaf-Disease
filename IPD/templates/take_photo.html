@@ -93,65 +93,65 @@
 
 
 
-        <div class="container">
-        <h1>Image Capture</h1>
-    
-        <!-- Form to submit the captured image -->
-        <form method="post" action="{% url 'image_capture' %}">
-            {% csrf_token %}
-            <!-- Hidden input to hold the image data -->
-            <input type="hidden" name="image_data" id="image_data">
-            
-            <!-- Video element to display the captured video feed -->
-            <video id="video" width="480" height="480" autoplay></video>
-            {% comment %} <video id="video" width="480" height="" autoplay style="border: 5px solid green;"></video> {% endcomment %}
-    
-            
-            <!-- Button to capture the image -->
-            <button type="button" id="capture_btn">Capture</button>
-            <br>
-            
-            <!-- Button to submit the captured image -->
-            <button type="submit">Submit</button>
-        </form>
-    
-        <!-- Display the predicted disease name -->
+    <div class="container">
+        <div class="container my-5">
+            <div class="row">
+              <div class="col-md-6">
+                <h1 class="text-center mb-4">Image Capture</h1>
+                <form method="post" action="{% url 'image_capture' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="image_data" id="image_data">
+                  <div class="mb-3">
+                    <video id="video" class="w-100" width="480" height="480" autoplay></video>
+                  </div>
+                  <button type="button" class="btn btn-primary mb-3" id="capture_btn">Capture</button>
+                  {% comment %} <button type="submit" class="btn btn-success mb-3" id="submit_btn" disabled>Submit</button> {% endcomment %}
+                
+              </div>
+              <div class="col-md-6 mt-5">
+                <div id="preview" class="mb-3 mt-4" style="display:none;">
+                  <img id="preview_image" class="w-100" src="" alt="Preview Image">
+                  <button type="submit" class="btn btn-success mb-3 mt-4" id="submit_btn" disabled>Submit</button>
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
         
 
 
-
+        
         {% if disease_predictions%}
-    <section class="container d-flex justify-content-center">
-        <div class="card mb-3">
-            <div class="row g-0">
-              
-                <div class="col-md-5">
-                <img src="{{ disease_predictions.0.image.url }}" class="img-fluid rounded-start" alt="{{ disease_predictions.0.disease }}">
-
-              </div>
-
-              <div class="col-md-7">
-                <div class="card-body">
-                  {% comment %} <h5 class="card-title">Card title</h5> {% endcomment %}
-                  <p class="card-text"><b>Predicted disease:</b> {{ disease_predictions.0.predicted_disease }}</p>
-                  <p class="card-text"><p class="h4">Treatment:</p> {{ disease_predictions.0.treatment}} </p>
-                  <p class="card-text"> <p class="h4">How to Use:</p> {{ disease_predictions.0.how_to_use}}</p>
-
+        <section class="container d-flex justify-content-center">
+            <div class="card mb-3">
+                <div class="row g-0">
+                  
+                    <div class="col-md-5">
+                    <img src="{{ disease_predictions.0.image.url }}" class="img-fluid rounded-start" alt="{{ disease_predictions.0.disease }}">
+    
+                  </div>
+    
+                  <div class="col-md-7">
+                    <div class="card-body">
+                        {% if disease_predictions.0.caution != ""%}
+                        <div class="alert alert-danger" role="alert">
+                            {{ disease_predictions.0.caution }}
+                          </div>
+                          {% else %}
+                      {% comment %} <h5 class="card-title">Card title</h5> {% endcomment %}
+                      <p class="card-text"><b>Predicted disease:</b> {{ disease_predictions.0.predicted_disease }}</p>
+                      <p class="card-text"><p class="h4">Treatment:</p> {{ disease_predictions.0.treatment}} </p>
+                      <p class="card-text"> <p class="h4">How to Use:</p> {{ disease_predictions.0.how_to_use}}</p>
+                     {% endif %}
+                    </div>
+                  </div>
+                
                 </div>
               </div>
-            
-            </div>
-          </div>
-    </section>
-    {% endif %}
+        </section>
+        {% endif %}
 
-
-
-
-
-
-
-    </div>
+      </div>
 
 
 
@@ -161,62 +161,53 @@
 
 
 
-
-
-
-
-    
-        <!-- JavaScript code to capture the video feed and set the captured image data -->
-        <script>
-            // Get the video, capture button, and image data input element
-            const video = document.getElementById('video');
-            const captureBtn = document.getElementById('capture_btn');
-            const imageDataInput = document.getElementById('image_data');
-    
-            // Request access to the user's video feed
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    // Set the video element's source to the stream
-                    video.srcObject = stream;
-                })
-                .catch(error => {
-                    // Log any errors to the console
-                    console.log(error);
-                });
-    
-            // Add a click event listener to the capture button
-            captureBtn.addEventListener('click', () => {
-                // Create a canvas element with the same dimensions as the video
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                
-                // Get the canvas context and draw the video frame onto it
-                const context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                // Get the data URL of the captured image and set it as the value of the image data input element
-                const dataURL = canvas.toDataURL('image/jpeg');
-                imageDataInput.value = dataURL;
-            });
-        </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
+      <!-- JavaScript code to capture the video feed and set the captured image data -->
+      <script>
+        // Get the video, capture button, submit button, and image data input element
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture_btn');
+        const submitBtn = document.getElementById('submit_btn');
+        const imageDataInput = document.getElementById('image_data');
+        const previewImage = document.getElementById('preview_image');
+        const previewDiv = document.getElementById('preview');
+        
+        // Request access to the user's video feed
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            // Set the video element's source to the stream
+            video.srcObject = stream;
+          })
+          .catch(error => {
+            // Log any errors to the console
+            console.log(error);
+          });
+      
+        // Add a click event listener to the capture button
+        captureBtn.addEventListener('click', () => {
+          // Create a canvas element with the same dimensions as the video
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+      
+          // Get the canvas context and draw the video frame onto it
+          const context = canvas.getContext('2d');
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      
+          // Get the data URL of the captured image and set it as the source of the preview image
+          const dataURL = canvas.toDataURL('image/jpeg');
+          previewImage.src = dataURL;
+          previewDiv.style.display = 'block';
+      
+          // Set the value of the image data input element to the captured image data
+          imageDataInput.value = dataURL;
+      
+          // Show the submit button
+          submitBtn.style.display = 'block';
+          submitBtn.disabled = false;
+        });
+      </script>
+      
 
    
         {% include 'footer.html' %}

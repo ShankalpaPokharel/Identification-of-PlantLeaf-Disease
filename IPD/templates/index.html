@@ -49,7 +49,7 @@
  <div style="background-image: url({% static '/Images/hero-bg.png' %})">
 
         <!-- Navbar -->
-        <div class="container mt-3 ">
+        <div class="container mt-3 p-3">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
                 <div class="container-fluid">
 
@@ -65,11 +65,11 @@
 
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                            <li class="nav-item">
+                            {% comment %} <li class="nav-item">
                                 <a class="nav-link active fw-bold" aria-current="page" href="index.html">Home</a>
-                            </li>
+                            </li> {% endcomment %}
                             <li class="nav-item">
-                                <a class="nav-link active fw-bold" href="#why">Features</a>
+                                <a class="nav-link active fw-bold" href="#feature">Features</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active fw-bold" href="#about">About US</a>
@@ -142,7 +142,54 @@
 
 </div>
 
-        <section id="features" >
+
+        
+<!-- hero-bg-end -->
+        </div>
+
+
+
+
+
+
+        <section id="feature" class="py-5 bg-light" >
+            <div class="container">
+                <div class="row mb-5">
+                    
+                    <div class="col-md-6 pt-5">
+                        <h2 class="fw-bold mb-4">Our Features</h2>
+                        {% comment %} <p class="lead mb-4">Our platform not only identifies plant diseases, but also provides personalized recommendations for treatment based on your specific situation. Whether you're an experienced gardener or a beginner, our recommendations will help you keep your plants healthy and thriving.</p> {% endcomment %}
+                        <ul class="lead mb-4">
+                            
+                            <li><p class="fw-bold">Easy Image upload</p>You can easily upload images of plant leaves using our "choose image" or "drag and drop" options, or take a picture using your device's camera.</li>
+    
+                            <li><p class="fw-bold">Accurate disease detection</p>Our advanced algorithms can accurately detect a wide range of plant diseases, helping you to identify and treat them quickly.</li>
+    
+                            <li><p class="fw-bold">Treatment recommendations</p>Our system provides detailed treatment recommendations based on the type of disease detected, along with instructions on how to use them effectively.</li>
+    
+                            <li><p class="fw-bold">User-friendly interface</p>Our system is designed with a user-friendly interface that is easy to use, even for those who may not be familiar with plant diseases.</li>
+    
+                            
+                          
+                        
+                        </ul>  
+                          
+                    </div>
+    
+                    <div class="col-md-6">
+                        <img src={%static "/Images/feature.png"%} class="img-fluid m-1" alt="Example of plant disease identification tool">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <section id="" >
             <div class="container">
                 <div class="row mb-5">
                     <div class="col-md-6">
@@ -155,9 +202,17 @@
                 </div>
             </div>
         </section>
-        
-<!-- hero-bg-end -->
-        </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
         <!-- Features section -->
@@ -209,8 +264,8 @@
                     <h2 class="text-center mb-5">About Us</h2>
                     <div class="col-md-6 ">
                         
-                        <p>We are a team of passionate plant enthusiasts who understand the importance of keeping plants healthy. Our platform is designed to help people identify and diagnose plant diseases quickly and accurately, so that they can take the necessary steps to protect their plants.</p>
-                        <p>Our mission is to promote plant health and help people all over the world keep their plants thriving.</p>
+                        <p class="lead">We are a team of passionate plant enthusiasts who understand the importance of keeping plants healthy. Our platform is designed to help people identify and diagnose plant diseases quickly and accurately, so that they can take the necessary steps to protect their plants.</p>
+                        <p class="lead">Our mission is to promote plant health and help people all over the world keep their plants thriving.</p>
                     </div>
                     <div class="col-md-6">
                         <img src={%static "/Images/about-us.svg"%} alt="About" class="img-fluid rounded-circle mb-3">

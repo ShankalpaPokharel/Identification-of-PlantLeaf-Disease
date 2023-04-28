@@ -91,243 +91,6 @@
 
         </div>
 
-{% comment %} 
-
-           <div class="container ">
-            <div class="d-md-block d-lg-table">
-              <table class="table table-striped">
-
-                <thead class="d-none d-md-block">
-                  <tr>
-                    <th>Image</th>
-                    <th>Predicted Disease</th>
-                    <th>Treatment</th>
-                    <th>How to Use</th>
-                  </tr>
-                </thead>
-
-                <tbody class="d-none d-md-block">
-                  {% for disease_prediction in disease_predictions %}
-                  <tr>
-                    <td><img src="{{ disease_prediction.image.url }}"  width="500" alt="{{ disease_prediction.predicted_disease }}"></td>
-                    <td>{{ disease_prediction.predicted_disease }}</td>
-                    <td>{{ disease_prediction.treatment }}</td>
-                    <td>{{ disease_prediction.how_to_use }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-
-            </div>
-
-            <div class="d-md-none">
-              {% for disease_prediction in disease_predictions %}
-              <div class="row mb-4">
-                <div class="col-12 col-md-4 mb-3">
-                  <img src="{{ disease_prediction.image.url }}" class="img-fluid" alt="{{ disease_prediction.predicted_disease }}">
-                </div>
-                <div class="col-12 col-md-8">
-                    <p class="mb-1"> <h4>Disease Name:</h4>{{ disease_prediction.predicted_disease }}</p>
-                  <p class="mb-1"><h4>Treatment:</h4> {{ disease_prediction.treatment }}</p>
-                  <p class="mb-0"><h4>How to Use:</h4> {{ disease_prediction.how_to_use }}</p>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-           {% endcomment %}
-
-
-
-           {% comment %} <div class="container">
-            <div class="d-md-block d-lg-table">
-              <table class="table table-striped">
-                <thead class="d-none d-md-block">
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Predicted Disease</th>
-                    <th scope="col">Treatment</th>
-                    <th scope="col">How to Use</th>
-                  </tr>
-                </thead>
-                <tbody class="d-none d-md-block">
-                  {% for disease_prediction in disease_predictions %}
-                  <tr>
-                    <td><img src="{{ disease_prediction.image.url }}" width="400" alt="{{ disease_prediction.predicted_disease }}"></td>
-                    <td>{{ disease_prediction.predicted_disease }}</td>
-                    <td>{{ disease_prediction.treatment }}</td>
-                    <td>{{ disease_prediction.how_to_use }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                <tbody class="d-md-none">
-                  <tr>
-                    <th scope="col">Predicted Disease</th>
-                  </tr>
-                </tbody>
-                <tbody class="d-md-none">
-                  {% for disease_prediction in disease_predictions %}
-                  <tr>
-                    <td><img src="{{ disease_prediction.image.url }}" class="img-fluid" alt="{{ disease_prediction.predicted_disease }}"></td>
-                  </tr>
-                  <tr>
-                    <td><h4>Disease Name:</h4> {{ disease_prediction.predicted_disease }}</td>
-                  </tr>
-                  <tr>
-                    <td><h4>Treatment:</h4> {{ disease_prediction.treatment }}</td>
-                  </tr>
-                  <tr>
-                    <td><h4>How to Use:</h4> {{ disease_prediction.how_to_use }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div> {% endcomment %}
-
-
-          {% comment %} <div class="container">
-            <div class="d-md-block d-lg-table">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Predicted Disease</th>
-                    <th scope="col">Treatment</th>
-                    <th scope="col">How to Use</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for disease_prediction in disease_predictions %}
-                  <tr>
-                    <td><img src="{{ disease_prediction.image.url }}" width="400" alt="{{ disease_prediction.predicted_disease }}"></td>
-                    <td>{{ disease_prediction.predicted_disease }}</td>
-                    <td>{{ disease_prediction.treatment }}</td>
-                    <td>{{ disease_prediction.how_to_use }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div> {% endcomment %}
-   
-          
-          
-{% comment %} <div class="min_height">
-  
-          <div class="container">
-            <div class="d-md-none">
-              
-                <table class="table table-striped">
-                  <tbody>
-                    <tbody class="d-md-none">
-                        {% for disease_prediction in disease_predictions %}
-                        
-                        <tr>
-                          <td><img src="{{ disease_prediction.image.url }}" class="img-fluid" alt="{{ disease_prediction.predicted_disease }}"></td>
-                        </tr>
-                        <tr>
-                          <td><h4>Disease Name:</h4> {{ disease_prediction.predicted_disease }}</td>
-                        </tr>
-                        <tr>
-                          <td><h4>Treatment:</h4> {{ disease_prediction.treatment }}</td>
-                        </tr>
-                        <tr>
-                          <td><h4>How to Use:</h4> {{ disease_prediction.how_to_use }}</td
-                        </tr>
-                        <tr>
-                            <td> <p> ---------------------- </p></td>
-                        </tr>
-
-                        {% endfor %}
-                      </tbody>
-                </table>
-              
-            </div>
-            <div class="d-none d-md-block d-lg-table">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Predicted Disease</th>
-                    <th scope="col">Treatment</th>
-                    <th scope="col">How to Use</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for disease_prediction in disease_predictions %}
-                  <tr>
-                    <td><img src="{{ disease_prediction.image.url }}" width="400" alt="{{ disease_prediction.predicted_disease }}"></td>
-                    <td>{{ disease_prediction.predicted_disease }}</td>
-                    <td>{{ disease_prediction.treatment }}</td>
-                    <td>{{ disease_prediction.how_to_use }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-
-
-   
-        </div> {% endcomment %}
-          
-          
-   
-        {% comment %} <div class="min_height">
-            {% if disease_predictions %}
-              <div class="container">
-                <div class="d-md-none">
-                  <table class="table table-striped">
-                    <tbody class="d-md-none">
-                      {% for disease_prediction in disease_predictions %}
-                        <tr>
-                          <td><img src="{{ disease_prediction.image.url }}" class="img-fluid" alt="{{ disease_prediction.predicted_disease }}"></td>
-                        </tr>
-                        <tr>
-                          <td><h4>Disease Name:</h4> {{ disease_prediction.predicted_disease }}</td>
-                        </tr>
-                        <tr>
-                          <td><h4>Treatment:</h4> {{ disease_prediction.treatment }}</td>
-                        </tr>
-                        <tr>
-                          <td><h4>How to Use:</h4> {{ disease_prediction.how_to_use }}</td>
-                        </tr>
-                        <tr>
-                          <td><p>----------------------</p></td>
-                        </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                <div class="d-none d-md-block d-lg-table">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Predicted Disease</th>
-                        <th scope="col">Treatment</th>
-                        <th scope="col">How to Use</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for disease_prediction in disease_predictions %}
-                        <tr>
-                          <td><img src="{{ disease_prediction.image.url }}" width="400" alt="{{ disease_prediction.predicted_disease }}"></td>
-                          <td>{{ disease_prediction.predicted_disease }}</td>
-                          <td>{{ disease_prediction.treatment }}</td>
-                          <td>{{ disease_prediction.how_to_use }}</td>
-                        </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            {% endif %}
-          </div>
-           {% endcomment %}
-
 
 
         <div class="min_height">
@@ -358,6 +121,17 @@
                               {{ disease_prediction.how_to_use }}
                            </td>
                         </tr>
+                        {% if disease_prediction.caution != "" %}
+                        <tr>
+                          
+                           <td style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
+                            <h4 >Caution:</h4>
+                            {{ disease_prediction.caution }}
+                          </td>
+                          
+                        </tr>
+                        {% endif%}
+                        
                         <tr>
                            <td>
                               <p>----------------------</p>
@@ -375,6 +149,8 @@
                            <th scope="col">Predicted Disease</th>
                            <th scope="col">Treatment</th>
                            <th scope="col">How to Use</th>
+                           <th scope="col">Caution</th>
+
                         </tr>
                      </thead>
                      <tbody>
@@ -384,6 +160,9 @@
                            <td>{{ disease_prediction.predicted_disease }}</td>
                            <td>{{ disease_prediction.treatment }}</td>
                            <td>{{ disease_prediction.how_to_use }}</td>
+                           {% if disease_prediction.caution != "" %}
+                           <td style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">{{ disease_prediction.caution }}</td>
+                           {% endif%}
                         </tr>
                         {% endfor %}
                      </tbody>
@@ -402,14 +181,7 @@
 
 
 
-{% comment %} {% for disease_prediction in disease_predictions %}
-  <tr>
-    <td><img src="{{ disease_prediction.image.url }}" width="400" alt="{{ disease_prediction.predicted_disease }}"></td>
-    <td>{{ disease_prediction.predicted_disease }}</td>
-    <td>{{ disease_prediction.treatment }}</td>
-    <td>{{ disease_prediction.how_to_use }}</td>
-  </tr>
-{% endfor %} {% endcomment %}
+
 
            
           

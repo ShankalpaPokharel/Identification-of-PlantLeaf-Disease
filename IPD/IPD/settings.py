@@ -132,8 +132,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
-
+MODEL_URL = '/models/'
+MODEL_ROOT = os.path.join(BASE_DIR, 'model_dict')
 
 
 # Default primary key field type

@@ -6,8 +6,8 @@ let submitBtn = document.querySelector('#submitBtn');
 let file;
 
 function handleFileSelect(event) {
-  file = event.target.files[0]; // remove the "let" keyword
-  if (file.type.startsWith('image/')) {
+  let file = event.target.files[0];
+  if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg') {
     let reader = new FileReader();
     reader.onload = (e) => {
       previewImage.src = e.target.result;
@@ -17,10 +17,10 @@ function handleFileSelect(event) {
       dropzone.classList.add('disabled');
       fileInput.classList.add('disabled');
       submitBtn.disabled = false;
-    }
+    };
     reader.readAsDataURL(file);
   } else {
-    alert('Please choose an image file.');
+    alert('Please choose an image file. Image Extention Should be in jpg or jpeg or png');
   }
 }
 
@@ -38,7 +38,7 @@ dropzone.addEventListener('dragleave', () => {
 dropzone.addEventListener('drop', (e) => {
   e.preventDefault();
   file = e.dataTransfer.files[0]; // remove the "let" keyword
-  if (file.type.startsWith('image/')) {
+  if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg') {
     let reader = new FileReader();
 
 
@@ -59,7 +59,7 @@ dropzone.addEventListener('drop', (e) => {
     }
     reader.readAsDataURL(file);
   } else {
-    alert('Please choose an image file.');
+    alert('Please choose an image file. Image Extention Should be in jpg or jpeg or png');
   }
 });
 

@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
+
+from django.conf import settings
+
 from .models import DiseasePrediction
 
 def index(request):
@@ -143,7 +146,7 @@ def signup(request):
         #     'activation_url': activation_url,
         # })
         current_site = get_current_site(request)
-        email_body = f"Hi {user.username},\n\nPlease click on the link below to activate your account:\n\nhttp://{current_site.domain}{activation_url}\n\nIf you did not request this registration, please disregard this email.\n\nBest regards,\nThe Website Team"
+        email_body = f"Hi {user.username},\n\nPlease click on the link below to activate your account:\n\nhttp://{current_site.domain}{activation_url}\n\nIf you did not request this registration, please disregard this email.\n\nBest regards,\nIdentification of Plant Disease Team"
         
         email = EmailMessage(
             email_subject,
@@ -262,36 +265,54 @@ def image_upload(request):
         image = request.FILES.get('image')
         print(request.FILES)
         print("image name is ",image)
-        predicted_disease = "disease1" 
-        # Replace with your prediction logic
-        treatment = "Fungicides such as azoxystrobin, propiconazole, or chlorothalonil can be used to control cercospora leaf spot. " # Replace with your prediction logic
-        how_to_use = "Mix the fungicide with water according to the manufacturer's instructions and apply it evenly to the tree's foliage and fruit using a sprayer or other suitable equipment. It's best to apply the fungicide before the onset of infection, and repeat every 7-14 days as necessary." # Replace with your prediction logic
-
+       
 
         if image and image.content_type.startswith('image/'):
-            try:
-                fname, ext = os.path.splitext(image.name)
-                filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + ext
+            
+            fname, ext = os.path.splitext(image.name)
+            filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + ext
 
-                # Save the file to the media folder with a unique filename
-                with open(os.path.join('media', filename), 'wb+') as destination:
-                    for chunk in image.chunks():
-                        destination.write(chunk)
+            # Save the file to the media folder with a unique filename
+            with open(os.path.join('media', filename), 'wb+') as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
 
-                # Get the currently logged in user
-                user = request.user
+            path = os.path.join(settings.MEDIA_ROOT, filename)
+
+            predicted_disease = ""
+
+            treatment, how_to_use = "",""
+
+            caution= classify_image(path)
+            print(caution)
+            if caution=="Plant":
+                caution=""
+                img_array = preprocess_image(path)
+               
+                predicted_disease = model_return(img_array)
+                print(predicted_disease)
+
+                treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+
+            else:
+                caution="Your uploaded photo doesn't seem to be a plant. Please Provide Plant Image(Only Leaf Image Recommended). "
+                treatment = ""
+                how_to_use =""
+            
+
+            # Get the currently logged in user
+            user = request.user
 
                 # Create a new instance of the DiseasePrediction model and save the data
-                disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease, treatment=treatment, how_to_use=how_to_use)
-                disease_prediction.save()
+            disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease, treatment=treatment, how_to_use=how_to_use,caution=caution)
+            disease_prediction.save()
 
-                disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
-                fname = request.user.first_name
-                context = {'disease_predictions': disease_predictions, 'fname':fname}
-                return render(request, 'home.html', context)
+            disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
+            fname = request.user.first_name
+            context = {'disease_predictions': disease_predictions, 'fname':fname}
+            return render(request, 'home.html', context)
 
-            except Exception as e:
-                return HttpResponse(f"Error uploading file: {str(e)}")
+            
         else: 
             return HttpResponse("Please upload an image file")
     
@@ -318,7 +339,100 @@ from PIL import Image
 
 from tensorflow.keras.preprocessing import image as keras_image
 
-import tensorflow as tf
+import tensorflow as tf 
+
+import numpy as np 
+
+
+
+
+# ref = os.path.join(settings.MODEL_ROOT, 'ref.pickle')
+# treat_dict = os.path.join(settings.MODEL_ROOT, 'disease_dictionary.pickle')
+
+import pickle
+# disease_dict = pickle.load(open(ref, 'rb'))
+# use_treat_dict = pickle.load(open(treat_dict, 'rb'))
+
+# # Open the pickle file in read mode
+# with open(disease_dict, 'rb') as f:
+#     # Load the contents of the file into a dictionary
+#     disease_dict = pickle.load(f)
+
+# # Open the pickle file in read mode
+# with open(use_treat_dict, 'rb') as f:
+#     # Load the contents of the file into a dictionary
+#     use_treat_dict = pickle.load(f)
+
+ref_path = os.path.join(settings.MODEL_ROOT, 'ref.pickle')
+treat_dict_path = os.path.join(settings.MODEL_ROOT, 'disease_dictionary.pickle')
+
+with open(ref_path, 'rb') as f:
+    disease_dict = pickle.load(f)
+
+with open(treat_dict_path, 'rb') as f:
+    use_treat_dict = pickle.load(f)
+
+
+
+
+
+
+# def image_capture(request):
+#     if request.method == 'POST':
+
+#     # get the base64-encoded image data from the POST request
+#         image_data = request.POST.get('image_data')
+        
+#         dataURL = image_data
+#         # remove the prefix and extract the encoded data
+#         encoded_data = dataURL.split(',')[1]
+#         # add padding to the encoded data if necessary
+#         padding_needed = len(encoded_data) % 4
+#         if padding_needed > 0:
+#             encoded_data += b'=' * (4 - padding_needed)
+#         # decode the base64-encoded data
+#         binary_data = base64.urlsafe_b64decode(encoded_data)
+#         # open the image from the binary data
+#         img = Image.open(BytesIO(binary_data))
+
+#         #  Save the file to the media folder with a unique filename
+#         filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + '.jpeg'
+#         with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
+#             for chunk in img.read():
+#                 destination.write(chunk)
+
+#         path = os.path.join(settings.MEDIA_ROOT, filename)
+#         # preprocess the image for prediction
+#         img_array = preprocess_image(path)
+#         predicted_disease = model_return(img_array)
+#         print(predicted_disease)
+
+#         treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+
+
+#         caution= classify_image(path)
+#         print(caution)
+#         if caution=="Plant":
+#             caution=""
+#         else:
+#             caution="Your uploaded photo doesn't seem to be a plant image, so the prediction may be inaccurate."
+            
+
+#         # Get the currently logged in user
+#         user = request.user
+
+#             # Create a new instance of the DiseasePrediction model and save the data
+#         disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease, treatment=treatment, how_to_use=how_to_use,caution=caution)
+#         disease_prediction.save()
+
+#         disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
+#         fname = request.user.first_name
+#         context = {'disease_predictions': disease_predictions}
+#         return render(request, 'home.html', context)
+        
+
+    
+from django.core.files.base import ContentFile
 
 def image_capture(request):
     if request.method == 'POST':
@@ -334,20 +448,101 @@ def image_capture(request):
             encoded_data += b'=' * (4 - padding_needed)
         # decode the base64-encoded data
         binary_data = base64.urlsafe_b64decode(encoded_data)
+
         # open the image from the binary data
-        img = Image.open(BytesIO(binary_data))  
-        # save the image to a temporary file
-        temp_file = "temp.jpg"
-        
-        img.save(temp_file) 
+        img = Image.open(BytesIO(binary_data))
+
+        # Save the file to the media folder with a unique filename
+        filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + '.jpg'
+        with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
+            img.save(destination, 'JPEG')
+
         # preprocess the image for prediction
-        img_array = preprocess_image(temp_file) 
-        # load the trained model
-        model = tf.keras.models.load_model("testIPD/best_model.h5") 
-        # make a prediction using the model
-        pred = np.argmax(model.predict(img_array))  
-        # convert the predicted label to a string using the dictionary of labels
-        prediction = disease_dict[pred] 
-        # render the camera.html template with the prediction context
-        context = {'prediction': prediction}
+        img_array = preprocess_image(os.path.join(settings.MEDIA_ROOT, filename))
+        predicted_disease = model_return(img_array)
+        print(predicted_disease)
+
+        treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+        
+
+        caution= classify_image(os.path.join(settings.MEDIA_ROOT, filename))
+        print(caution)
+        if caution=="Plant":
+            caution=""
+        else:
+            caution="Your uploaded photo doesn't seem to be a plant. Please Provide Plant Image(Only Leaf Image Recommended)."
+
+        # Get the currently logged in user
+        user = request.user
+
+        # Create a new instance of the DiseasePrediction model and save the data
+        disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease, treatment=treatment, how_to_use=how_to_use,caution=caution)
+        disease_prediction.save()
+
+        disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
+        fname = request.user.first_name
+        context = {'disease_predictions': disease_predictions}
         return render(request, 'take_photo.html', context)
+
+
+
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+def preprocess_image(image):
+    # Preprocess the image for prediction
+    img = load_img(image, target_size=(256, 256))
+    x = img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    img_array= x/255.0
+
+    return img_array 
+
+
+d_model= os.path.join(settings.MODEL_ROOT, 'best_model.h5')
+p_model = os.path.join(settings.MODEL_ROOT, 'plant_classifier_model.h5')
+
+model_d = tf.keras.models.load_model(d_model)
+model_p = tf.keras.models.load_model(p_model) 
+ 
+def model_return(image_array):
+        
+    # make a prediction using the model
+    # Make a prediction using the trained model
+    predictions = model_d.predict(image_array)
+    # Get the index of the predicted class
+    pred = np.argmax(predictions)
+        
+    print("Prediction index is", pred)
+    # convert the predicted label to a string using the dictionary of labels
+    prediction = disease_dict[pred] 
+        
+    confidence = round(100 * np.max(predictions), 2)
+    print(confidence)
+    return prediction
+
+
+
+
+# Define the classify_image function
+def classify_image(image_path):
+    # Load the image
+    img = load_img(image_path, target_size=(224, 224))
+    # Convert the image to a numpy array
+    img_array = img_to_array(img)
+    # Reshape the array to match the input shape of the model
+    img_array = img_array.reshape((1, 224, 224, 3))
+    # Preprocess the image
+    img_array = img_array / 255.0
+    # Predict the class label
+    prediction = model_p.predict(img_array)
+    # Map the class label to a human-readable string
+    print("plant or not plant",prediction)
+    if prediction < 0.5:
+        return 'Not a plant'
+    else:
+        return 'Plant'
+    
+
+def get_treatment_and_how_to_use(disease_name):
+  treatment = use_treat_dict[disease_name]["Treatment"]
+  how_to_use = use_treat_dict[disease_name].get("How to Use", "No information available.")
+  return treatment, how_to_use

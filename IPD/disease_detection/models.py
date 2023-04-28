@@ -25,6 +25,7 @@ class DiseasePrediction(models.Model):
     predicted_disease = models.CharField(max_length=100)
     treatment = models.CharField(max_length=200)
     how_to_use = models.TextField()
+    caution = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
     verification_token = models.CharField(max_length=32, blank=True)
