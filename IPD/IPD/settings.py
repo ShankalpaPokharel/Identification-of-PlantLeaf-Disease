@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-!sc(w)$37$5rr0o3dzh%*)9@*9+aobrq(*kfjj+ffzapz_k1d9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'disease_detection',
+
+    
     
 ]
 
@@ -51,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # "django.middleware.security.SecurityMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'IPD.urls'
@@ -121,10 +127,30 @@ USE_TZ = True
 
 # STATIC_URL = 'static/'
 
-# static file 
+# Define the STATIC_URL for serving static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
 
+# Define the STATIC_ROOT for collecting static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Define the STATICFILES_DIRS for finding static files
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+
+# if DEBUG:
+
+#   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# else:
+
+#   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Define the URL at which uploaded media files will be served
 MEDIA_URL = '/media/'
@@ -143,7 +169,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # to solve this issuse: when DEBUG is set to False, the ALLOWED_HOSTS setting must also be set
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1'] 
+# ALLOWED_HOSTS = ["*"] 
 
 # need to do this
 # python manage.py collectstatic

@@ -150,6 +150,12 @@
               </div>
         </section>
         {% endif %}
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message}}
+          </div>
+
+        {% endif %}
 
       </div>
 

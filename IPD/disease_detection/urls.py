@@ -38,7 +38,6 @@ urlpatterns = [
 
 
 
-    # path('verify-email/', verify_email, name='verify_email'),
     path('activate/<uidb64>/<token>/', activate, name='activate'),
 
 

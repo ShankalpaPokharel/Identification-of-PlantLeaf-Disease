@@ -134,21 +134,6 @@
 
 
 
-                    {% comment %} <form method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="dropzone">
-                          <span>Drag and drop an image here</span>
-                          <label for="fileInput" class="file-btn">Choose File</label>
-                          <input type="file" id="fileInput" name="image" accept="image/*" style="display:none;">
-                          <span id="deleteIcon" class="delete-icon" style="display:none;"></span>
-                          <img id="previewImage" style="display:none;">
-                        </div>
-                        <div class="d-grid gap-2 col-6 mx-auto">
-                        <button id="submitBtn" type="submit" class="btn btn-lg btn-success mt-3 b" disabled>Submit</button>
-                        </div>
-                        
-                      </form> {% endcomment %}
-
                       <form id="formId" method="POST" action="{% url 'image_upload' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="dropzone">
@@ -174,14 +159,6 @@
 
 
 
-
-
-                {% comment %} <div class="col-lg-6 my-4 ">
-
-                    <div class="dropzone">
-                        
-                    </div> {% endcomment %}
-
                 </div>
             
             </div>
@@ -189,45 +166,8 @@
     </section>
 
 
-    {% comment %} <div class="container col-lg-6 my-4">
-
-        <div class="dropzone">
-
-    </div> {% endcomment %}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {% comment %} <section>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="container col-lg-6 my-4">
-
-                    <div class="dropzone">
-
-                    </div>
-            
-                </div>
-            </div>
-        </div>
-    </section> {% endcomment %}
 
     {% if disease_predictions%}
     <section class="container d-flex justify-content-center">
@@ -257,7 +197,18 @@
             </div>
           </div>
     </section>
+{% endif %}
+
+    <section class="container d-flex justify-content-center">
+        
+    
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message}}
+      </div>
+
     {% endif %}
+    </section>
 
 
     <section id="feature" class="py-5 bg-light" >
@@ -492,15 +443,4 @@
 
 </html>
 
-<!-- 
-    fw-bold : use to bold text
 
-
-
-
-
-
-
-// Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) { ... }
--->
