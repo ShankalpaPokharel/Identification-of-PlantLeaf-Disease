@@ -224,72 +224,77 @@ from django.utils import timezone
 
 
 @login_required
-def image_upload(request):
-    if request.method == 'POST':
-        image = request.FILES.get('image')
-        print(request.FILES)
-        print("image name is ",image)
+# def image_upload(request):
+#     if request.method == 'POST':
+#         image = request.FILES.get('image')
+#         print(request.FILES)
+#         print("image name is ",image)
 
-        # Check if an image was uploaded
-        if not image:
-            error_message = "No Image was uploaded"
-            context = {'error_message': error_message}
-            return render(request, 'home.html', context)
+#         # Check if an image was uploaded
+#         if not image:
+#             error_message = "No Image was uploaded"
+#             context = {'error_message': error_message}
+#             return render(request, 'home.html', context)
 
-        # Check if the file type is valid
-        if not image.content_type.startswith('image/') or \
-           not any(image.name.lower().endswith('.' + ext) for ext in ['png', 'jpg', 'jpeg']):
-            return HttpResponse("Invalid image file type. Please upload a png, jpg or jpeg file.")
+#         # Check if the file type is valid
+#         if not image.content_type.startswith('image/') or \
+#            not any(image.name.lower().endswith('.' + ext) for ext in ['png', 'jpg', 'jpeg']):
+#             return HttpResponse("Invalid image file type. Please upload a png, jpg or jpeg file.")
 
-        try:
-            # Try to open the image with Pillow
-            img = Image.open(image)
+#         try:
+#             # Try to open the image with Pillow
+#             img = Image.open(image)
 
-            # Generate a unique filename and save the file to the media folder
-            fname, ext = os.path.splitext(image.name)
-            filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + ext
-            with open(os.path.join('media', filename), 'wb+') as destination:
-                for chunk in image.chunks():
-                    destination.write(chunk)
+#             # Generate a unique filename and save the file to the media folder
+#             fname, ext = os.path.splitext(image.name)
+#             filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + ext
+#             with open(os.path.join('media', filename), 'wb+') as destination:
+#                 for chunk in image.chunks():
+#                     destination.write(chunk)
 
-            path = os.path.join(settings.MEDIA_ROOT, filename)
+#             path = os.path.join(settings.MEDIA_ROOT, filename)
 
-            predicted_disease = ""
-            treatment, how_to_use = "", ""
-            caution = classify_image(path)
-            print(caution)
-            if caution == "Plant":
-                caution = ""
-                img_array = preprocess_image(path)
-                predicted_disease = model_return(img_array)
-                print(predicted_disease)
-                treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
-            else:
-                caution = "Your uploaded photo doesn't seem to be a plant. Please Provide Plant Image(Only Leaf Image Recommended). "
-                treatment = ""
-                how_to_use = ""
 
-            # Get the currently logged in user
-            user = request.user
+#             print("Image path:", path)
+#             print("Does file exist:", os.path.exists(path))
 
-            # Create a new instance of the DiseasePrediction model and save the data
-            disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease,
-                                                   treatment=treatment, how_to_use=how_to_use, caution=caution)
-            disease_prediction.save()
 
-            disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
-            fname = request.user.first_name
-            context = {'disease_predictions': disease_predictions, 'fname':fname}
-            return render(request, 'home.html', context)
+#             predicted_disease = ""
+#             treatment, how_to_use = "", ""
+#             caution = classify_image(path)
+#             print(caution)
+#             if caution == "Plant":
+#                 caution = ""
+#                 img_array = preprocess_image(path)
+#                 predicted_disease = model_return(img_array)
+#                 print(predicted_disease)
+#                 treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+#             else:
+#                 caution = "Your uploaded photo doesn't seem to be a plant. Please Provide Plant Image(Only Leaf Image Recommended). "
+#                 treatment = ""
+#                 how_to_use = ""
 
-        except UnidentifiedImageError:
-            error_message = "The image file is corrupted or not supported. Please upload a valid image file."
-            context = {'error_message': error_message}
-            return render(request, 'home.html', context)
+#             # Get the currently logged in user
+#             user = request.user
+
+#             # Create a new instance of the DiseasePrediction model and save the data
+#             disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease,
+#                                                    treatment=treatment, how_to_use=how_to_use, caution=caution)
+#             disease_prediction.save()
+
+#             disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
+#             fname = request.user.first_name
+#             context = {'disease_predictions': disease_predictions, 'fname':fname}
+#             return render(request, 'home.html', context)
+
+#         except UnidentifiedImageError:
+#             error_message = "The image file is corrupted or not supported. Please upload a valid image file."
+#             context = {'error_message': error_message}
+#             return render(request, 'home.html', context)
 
             
 
-    return HttpResponse("Invalid request method")
+#     return HttpResponse("Invalid request method")
 
 
 
@@ -378,15 +383,28 @@ def image_capture(request):
 
         # preprocess the image for prediction
         img_array = preprocess_image(os.path.join(settings.MEDIA_ROOT, filename))
-        predicted_disease = model_return(img_array)
-        print(predicted_disease)
 
-        treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+
+
+
+        # predicted_disease = model_return(img_array)
+        # print(predicted_disease)
+
+        # treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
         
+        predicted_disease = ""
+        treatment, how_to_use = "", ""
+
+
+
         caution= classify_image(os.path.join(settings.MEDIA_ROOT, filename))
         print(caution)
         if caution=="Plant":
             caution=""
+            predicted_disease = model_return(img_array)
+            print(predicted_disease)
+
+            treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
         else:
             caution="Your uploaded photo doesn't seem to be a plant. Please Provide Plant Image(Only Leaf Image Recommended)."
 
@@ -470,5 +488,74 @@ def get_treatment_and_how_to_use(disease_name):
   how_to_use = use_treat_dict[disease_name].get("How to Use", "No information available.")
   return treatment, how_to_use
 
+@login_required
+def image_upload(request):
+    if request.method == 'POST':
+        # get the uploaded image file
+        image = request.FILES.get('image')
+        print(request.FILES)
+        print("image name is ", image)
+
+        # Check if an image was uploaded
+        if not image:
+            error_message = "No Image was uploaded"
+            context = {'error_message': error_message}
+            return render(request, 'home.html', context)
+
+        # Check if the file type is valid
+        if not image.content_type.startswith('image/') or \
+                not any(image.name.lower().endswith('.' + ext) for ext in ['png', 'jpg', 'jpeg']):
+            return HttpResponse("Invalid image file type. Please upload a png, jpg, or jpeg file.")
+
+        try:
+            # Generate a unique filename and save the file to the media folder
+            filename = str(timezone.now().timestamp()) + '_' + str(uuid.uuid4().hex) + os.path.splitext(image.name)[1]
+            with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+
+            # preprocess the image for prediction
+            img_array = preprocess_image(os.path.join(settings.MEDIA_ROOT, filename))
+
+            # Perform image classification and prediction
+            predicted_disease = ""
+            treatment, how_to_use = "", ""
+
+            caution = classify_image(os.path.join(settings.MEDIA_ROOT, filename))
+            print(caution)
+            if caution == "Plant":
+                caution = ""
+                predicted_disease = model_return(img_array)
+                print(predicted_disease)
+
+                treatment, how_to_use = get_treatment_and_how_to_use(predicted_disease)
+            else:
+                caution = "Your uploaded photo doesn't seem to be a plant. Please provide a plant image (only leaf image recommended)."
+
+            # Get the currently logged in user
+            user = request.user
+
+            # Create a new instance of the DiseasePrediction model and save the data
+            disease_prediction = DiseasePrediction(user=user, image=filename, predicted_disease=predicted_disease,
+                                                   treatment=treatment, how_to_use=how_to_use, caution=caution)
+            disease_prediction.save()
+
+            disease_predictions = DiseasePrediction.objects.filter(user=request.user).order_by('-created_at')[:1]
+            fname = request.user.first_name
+            context = {'disease_predictions': disease_predictions, 'fname': fname}
+            return render(request, 'home.html', context)
+
+        except UnidentifiedImageError:
+            error_message = "The image file is corrupted or not supported. Please upload a valid image file."
+            context = {'error_message': error_message}
+            return render(request, 'home.html', context)
+
+    return HttpResponse("Invalid request method")
 
 
+
+#back from page not found
+
+def pnf_back(request):
+    # Redirect the user back to the previous page
+    return redirect('/')

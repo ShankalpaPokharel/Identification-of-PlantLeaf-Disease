@@ -66,7 +66,7 @@
          <div class="row ">
             <div class="col-md-5  offset-lg-1">
                <div class="p-4  ">
-                  <h3 class="fw-bold mb-4">Login</h3>
+                  <h3 class="fw-bold mb-4">Sign up</h3>
 
                   
                  
@@ -76,7 +76,7 @@
 
 
                     <div class="mb-2">
-                        <label for="text" class="form-label fw-bold">Username*</label>
+                        <label for="text" class="form-label fw-bold">Username<span class="text-danger">*</span></label>
                     <input  class="form-control custom-input" type="text" placeholder="Username" id="username" name="username" {% if errors.username %}class="error"{% endif %} value="{{ request.POST.username }}" required>
                     {% if errors.username %}
                         <div class="error-message">{{ errors.username }}</div>
@@ -85,7 +85,7 @@
                    
 
                     <div class="mb-2">
-                        <label for="firstname" class="form-label fw-bold">First Name*</label>
+                        <label for="firstname" class="form-label fw-bold">First Name<span class="text-danger">*</span></label>
                     <input class="form-control custom-input" type="text" placeholder="First Name" id="fname" name="fname" {% if errors.fname %}class="error"{% endif %} value="{{ request.POST.fname }}" required>
                     {% if errors.fname %}
                         <div class="error-message">{{ errors.fname }}</div>
@@ -93,7 +93,7 @@
                     </div>
                     
                     <div class="mb-2">
-                        <label for="lastname" class="form-label fw-bold">Last Name*</label>
+                        <label for="lastname" class="form-label fw-bold">Last Name<span class="text-danger">*</span></label>
                     <input class="form-control custom-input" type="text" placeholder="Last Name" id="lname" name="lname" {% if errors.lname %}class="error"{% endif %} value="{{ request.POST.lname }}" required>
                     {% if errors.lname %}
                         <div class="error-message">{{ errors.lname }}</div>
@@ -101,7 +101,7 @@
                     </div>
                     
                     <div class="mb-2">
-                        <label for="email" class="form-label fw-bold">Email*</label>
+                        <label for="email" class="form-label fw-bold">Email<span class="text-danger">*</span></label>
                     <input class="form-control custom-input" type="email" placeholder="E-mail" id="email" name="email" {% if errors.email %}class="error"{% endif %} value="{{ request.POST.email }}" required>
                     {% if errors.email %}
                         <div class="error-message">{{ errors.email }}</div>
@@ -111,7 +111,7 @@
 
 
                     <div class="mb-2">
-                        <label for="password" class="form-label fw-bold">Password*</label>
+                        <label for="password" class="form-label fw-bold">Password<span class="text-danger">*</span></label>
                     <input class="form-control custom-input" type="password" placeholder="Choose your password" id="pass1" name="pass1" {% if errors.password %}class="error"{% endif %} required>
                     {% if errors.pass1 %}
                         <div class="error-message">{{ errors.pass1 }}</div>
@@ -120,7 +120,7 @@
                     </div>
                     
                     <div class="mb-2">
-                        <label for="password" class="form-label fw-bold">Confirm Password*</label>
+                        <label for="password" class="form-label fw-bold">Confirm Password<span class="text-danger">*</span></label>
                     <input class="form-control custom-input" type="password" placeholder="Enter your password again" id="pass2" name="pass2" {% if errors.password %}class="error"{% endif %} required>
                     
                     

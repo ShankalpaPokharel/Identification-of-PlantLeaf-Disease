@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!sc(w)$37$5rr0o3dzh%*)9@*9+aobrq(*kfjj+ffzapz_k1d9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -125,41 +125,43 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'static/'
 
-# Define the STATIC_URL for serving static files
 STATIC_URL = '/static/'
 
-# Define the STATIC_ROOT for collecting static files
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Define the STATICFILES_DIRS for finding static files
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
-]
-
-# if DEBUG:
-
-#   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-# else:
-
-#   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Define the URL at which uploaded media files will be served
 MEDIA_URL = '/media/'
-# Define the path where uploaded media files will be stored
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if DEBUG:
+
+  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+else:
+
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 MODEL_URL = '/models/'
 MODEL_ROOT = os.path.join(BASE_DIR, 'model_dict')
+
+
+
+
+
+
+
+
+
+ALLOWED_HOSTS = ['*'] #Host name
+
+
+
+
+
+
+
+
+
 
 
 # Default primary key field type
@@ -188,3 +190,65 @@ EMAIL_HOST_PASSWORD = 'hxhtubyqdfophftm'
 
 
 BASE_URL = 'http://127.0.0.1:8000'
+
+
+
+
+
+
+
+
+# # STATIC_URL = 'static/'
+
+# # Define the STATIC_URL for serving static files
+# STATIC_URL = '/static/'
+
+# # Define the STATIC_ROOT for collecting static files
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# # Define the STATICFILES_DIRS for finding static files
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+
+# ]
+
+# # if DEBUG:
+
+# #   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# # else:
+
+# #   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# # # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# # # Define the URL at which uploaded media files will be served
+# # MEDIA_URL = '/media/'
+# # # Define the path where uploaded media files will be stored
+# # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# MODEL_URL = '/models/'
+# MODEL_ROOT = os.path.join(BASE_DIR, 'model_dict')
+
+
+# STATIC_URL = '/static/'
+
+# MEDIA_URL = '/media/'
+
+  
+
+# # if DEBUG:
+
+# #   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# # else:
+
+# #   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+  
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

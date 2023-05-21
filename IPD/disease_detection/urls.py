@@ -25,7 +25,10 @@ urlpatterns = [
 
     path('take_photo/', views.take_photo, name='take_photo'),
     path('image_capture/', views.image_capture, name='image_capture'),
-    
+
+
+
+    path('pnf_back/', views.pnf_back, name='pnf_back'),
 
 
 

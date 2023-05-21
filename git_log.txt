@@ -1,0 +1,95 @@
+commit 673f639fa1fd9a5237626d85af985d47b724fc3e
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Tue May 2 01:56:05 2023 +0545
+
+    Many error or issue solving adn final before deploy
+
+commit 85dec9c7e56b18f7e41f4a14df3247e019c82a37
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Fri Apr 28 20:43:32 2023 +0545
+
+    some error fixing
+
+commit 8395d9d482f232311e3158a1913e26b8508f9fa7
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Fri Apr 28 20:41:39 2023 +0545
+
+    Different type of error fixing
+
+commit 28c60b8e276c65da9a4b63544ecdb035808f3792
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Tue Apr 25 21:19:04 2023 +0545
+
+    make a better file uploading system
+
+commit 6b120b2001c1f1bf1be55a0bf471543b917ceb69
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Sun Apr 16 21:22:43 2023 +0545
+
+    Email varification
+
+commit 50dbf4f3c1b36a674bc6e23311f2b45d786821cc
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Sat Apr 15 22:36:04 2023 +0545
+
+    few chages , before work on validation
+
+commit 6baa5822eb0480ccb170fb5632fa40cf4633aecf
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Sat Apr 8 23:05:51 2023 +0545
+
+    proper frontend integrated and history page
+
+commit d6a04de2eba32d03d641872ebc677beef61d0e14
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Wed Mar 22 17:56:46 2023 +0545
+
+    handle basic login and signup error
+
+commit a6770e2774c1d44dd6689b2500b62215b5fbba92
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Wed Feb 22 19:48:20 2023 +0545
+
+    basic camera and login signup
+
+commit ec9306daca4a1c401650901a062e3553ec6702f7
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Wed Feb 8 16:25:01 2023 +0545
+
+    try photo upload and drag and drop
+
+commit 618eb626f8e14fbc79c0f8e903e5c9f304430ccb
+Author: ShankalpaPokharel <pokharelshankalpa58@gmail.com>
+Date:   Fri Jan 27 21:37:04 2023 +0545
+
+    login signup index bost
+
+commit 357cb1062ede7089384b04cf4949f1fea7328bb7
+Author: Shankalpa Pokharel <120445104+ShankalpaPokharel@users.noreply.github.com>
+Date:   Sun Jan 22 20:59:58 2023 +0545
+
+    Create README.md
+
+commit 3ff2385683a2b44be2ac86661eb00b94f8577a6f
+Author: Shankalpa Pokharel <shankalpapokharel@Shankalpas-MacBook-Air.local>
+Date:   Tue Jan 17 23:09:55 2023 +0545
+
+    Initial Project
+
+commit 78f22ba883609920d694ea2bfb7796fbfc17ab05
+Author: Shankalpa Pokharel <shankalpapokharel@Shankalpas-MacBook-Air.local>
+Date:   Fri Jan 6 13:11:44 2023 +0545
+
+    Initial Login
+
+commit 332a6a86afde6e2d1aa78d60ce5f715260efbe06
+Author: Shankalpa Pokharel <shankalpapokharel@Shankalpas-MacBook-Air.local>
+Date:   Sat Dec 31 15:04:35 2022 +0545
+
+    Initial Sign Up
+
+commit bb667feeeb82a4f4797839b0bc5b5c4f5ca26d7e
+Author: Shankalpa Pokharel <shankalpapokharel@Shankalpas-MacBook-Air.local>
+Date:   Tue Dec 27 17:49:54 2022 +0545
+
+    Initial Commit
